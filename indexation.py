@@ -31,7 +31,7 @@ embeddings = model.encode(
     show_progress_bar=True,
     batch_size=64  
 )
-# embeddings = model.encode(df["text"].tolist(), show_progress_bar=True)
+
 
 embeddings = np.array(embeddings).astype("float32")
 
@@ -40,12 +40,10 @@ faiss.normalize_L2(embeddings)
 dimension = embeddings.shape[1]
 index = faiss.IndexFlatIP(dimension)
 index.add(embeddings)
-# index = faiss.IndexFlatL2(dimension)
+
 
 print(f"Index créé avec {index.ntotal} films.")
 
-# faiss.write_index(index, "movies_index.faiss")
-# df.to_csv("movies_data.csv", index=False)
 
 faiss.write_index(index, "movies_index.faiss")
 df.to_csv("movies_data.csv", index=False)
